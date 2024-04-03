@@ -197,5 +197,5 @@ def run_benchmark():
             print(f"{method_name}: {execution_time} seconds")
 
 if __name__ == "__main__":
-    #main()
-    run_benchmark()
+    main()
+    #run_benchmark()

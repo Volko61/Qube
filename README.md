@@ -19,31 +19,50 @@ Then, you can use the `main.py` script to read in polygons from .poly files, fin
 ```
 python main.py 10x10.poly e2.poly
 ```
-To benchmark the speed of each method on a given set of polygons, use the `benchmark.py` script. For example:
+To benchmark the speed of each method on a given set of polygons, edit the `main.py` script :
 ```
-python benchmark.py 10x10.poly e2.poly
+if __name__ == "__main__":
+    main()
+    #run_benchmark()
+```
+to 
+```
+if __name__ == "__main__":
+    #main()
+    run_benchmark()
+```
+```
+python main.py 10x10.poly e2.poly
 ```
 To generate test files with random polygons, use the `generate_test_files.py` script. For example:
 ```
-python generate_test_files.py 100 1000
+python generate_test_files.py
 ```
-This will generate 100 files with 1000 random polygons each.
+It will generate various .poly files to test simple scenes and a randomly_generated.poly file that is composed of randomly generated polygons based on the following parameters : 
+```
+You can edit parameters here :
+n = 4000
+m = 50
+min_coord = -100000000
+max_coord = 100000000
+```
+This will generate 4000 random polygons with 50 angles in each.
 
 ## Performance
 
-The performance of each algorithm was tested on a set of polygons with varying numbers of vertices and complexity. The results are shown below:
+The performance of each algorithm was tested on a set of polygons with varying numbers of vertices and complexity without the Peucker optimisation. The results are shown below:
 
 | Number of Polygons | Number of Vertices | Ray Tracing Method (seconds) | Winding Number Method (seconds) | Cross Product Method (seconds) |
 | --- | --- | --- | --- | --- |
-| 400 | 50 | 0.23 | 0.12 | 0.12 |
-| 4000 | 50 | 2.34 | 1.30 | 1.14 |
-| 400 | 300 | 8.16 | 4.54 | 4.02 |
+| 400 | 50 | 0.24 | 0.13 | 0.11 |
+| 4000 | 50 | 2.36 | 1.30 | 1.13 |
+| 400 | 300 | 8.20 | 4.59 | 4.02 |
 
 The Cross Product Method consistently outperformed the other methods, especially for polygons with a large number of vertices.
 
 ## Optimization
 
-The Peucker and Doo Algorithm was used to simplify the polygons and improve the performance of the other algorithms. The results are shown below:
+The Peucker and Doo Algorithm was used to simplify the polygons and improve the performance of the other algorithms. The results with a threshold of 90000000 are shown below:
 
 | Number of Polygons | Number of Vertices | Ray Tracing Method (seconds) | Winding Number Method (seconds) | Cross Product Method (seconds) |
 | --- | --- | --- | --- | --- |
